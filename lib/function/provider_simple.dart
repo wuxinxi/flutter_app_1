@@ -60,12 +60,15 @@ class _ProviderRouteState extends State<ProviderRoute> {
                       );
                     },
                   ),
-                  Builder(
-                    builder: (context) {
-                      var cart = ChangeNotifierProvider.of<CartModel>(context);
-                      return Text('总价：${cart.totalPrice}');
-                    },
-                  ),
+//                  Builder(
+//                    builder: (context) {
+//                      var cart = ChangeNotifierProvider.of<CartModel>(context);
+//                      return Text('总价：${cart.totalPrice}');
+//                    },
+//                  ),
+                  Consumer<CartModel>(
+                      builder: (context, cart) =>
+                          Text('总价：${cart.totalPrice}')),
                   Builder(
                     builder: (context) {
                       print('构建 RaisedButton');
@@ -90,4 +93,16 @@ class _ProviderRouteState extends State<ProviderRoute> {
       ),
     );
   }
+}
+
+//显式调用 ChangeNotifierProvider.of时如果有多个model依赖时，显然代码冗余
+class Consumer<T> extends StatelessWidget {
+  final Widget child;
+  final Widget Function(BuildContext context, T value) builder;
+
+  Consumer({Key key, this.child, @required this.builder});
+
+  @override
+  Widget build(BuildContext context) =>
+      builder(context, ChangeNotifierProvider.of<T>(context));
 }
