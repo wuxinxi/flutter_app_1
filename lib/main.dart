@@ -1,12 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'newactivity.dart';
-import '1_state_study.dart';
+import '8_listener.dart';
 import '2_base_widget.dart';
 import '4_layout.dart';
 import '5_box.dart';
 import '6_scroll.dart';
 import '7_function.dart';
+import '9_animator.dart';
 import 'util/utils.dart';
+import 'util/event_bus.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,15 +16,56 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Color themeColor = getRandomMaterialColor();
+//    Color themeColor = getRandomMaterialColor();
+//    return MaterialApp(
+//      title: 'Flutter Demo',
+//      theme: ThemeData(
+//        primarySwatch: themeColor,
+//      ),
+//      home: MyHomePage(title: 'Flutter Demo Home Page'),
+//    );
+    return MyMaterialApp(MyHomePage(title: 'Flutter Demo Home Page'));
+  }
+}
+
+class MyMaterialApp extends StatefulWidget {
+  final Widget home;
+
+  MyMaterialApp(this.home);
+
+  @override
+  State<StatefulWidget> createState() => MyMaterialAppState(home);
+}
+
+class MyMaterialAppState extends State<MyMaterialApp> {
+  Color themeColor = getRandomMaterialColor();
+  Widget home;
+
+  @override
+  void initState() {
+    super.initState();
+    bus.on('change',
+        (arg) => setState(() => themeColor = getRandomMaterialColor()));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    bus.off('change');
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: themeColor,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: home,
     );
   }
+
+  MyMaterialAppState(this.home);
 }
 
 class MyHomePage extends StatefulWidget {
@@ -85,11 +128,37 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               },
             ),
+            FlatButton(
+              child: Text('事件'),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return DragText();
+                }));
+              },
+            ),
+            FlatButton(
+              child: Text('动画'),
+              onPressed: () {
+                //MaterialPageRoute android 默认路由动画
+                //CupertinoPageRoute IOS路由动画
+
+                //自定义
+//                Navigator.push(context, PageRouteBuilder(pageBuilder: (context,animation,secondaryAnimation){
+//                  return FadeTransition(opacity: animation,child: ScaleAnimationRoute(),);
+//                }));
+
+                Navigator.push(context, CupertinoPageRoute(builder: (context) {
+                  return ScaleAnimationRoute();
+                }));
+              },
+            ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          bus.emit('change');
+        },
         tooltip: '切换主题',
         child: Icon(Icons.palette),
       ), // This trailing comma makes auto-formatting nicer for build methods.
