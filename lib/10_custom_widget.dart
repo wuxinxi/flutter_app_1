@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_1/widget/gradient_button.dart';
+import 'package:flutter_app_1/widget/progress_widget.dart';
 import 'package:flutter_app_1/widget/turn_box.dart';
 
 class CustomWidget extends StatefulWidget {
@@ -39,7 +40,7 @@ class CustomWidgetState extends State<CustomWidget> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 10, right: 10,top: 20),
+            padding: EdgeInsets.only(left: 10, right: 10, top: 20),
             child: GradientButton(
               child: Text('按我2'),
               onPressed: () {
@@ -74,6 +75,7 @@ class CustomWidgetState extends State<CustomWidget> {
             ),
           ),
           Text('自定义旋转'),
+          ProgressWidget(),
         ],
       ),
     );
