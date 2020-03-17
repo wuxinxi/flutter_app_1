@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '10_custom_widget.dart';
 import '8_listener.dart';
 import '2_base_widget.dart';
 import '4_layout.dart';
@@ -152,6 +153,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 }));
               },
             ),
+            FlatButton(
+              child: Text('自定义Widget'),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => CustomWidget())),
+            )
           ],
         ),
       ),

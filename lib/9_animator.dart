@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'animator/animated_switcher.dart';
 import 'animator/hero_route_second.dart';
+import 'animator/over_animation.dart';
 import 'animator/stagger_animation.dart';
 
 /// Curve:用来描述动画执行过程
@@ -114,12 +115,46 @@ class ScaleAnimationRouteState extends State<ScaleAnimationRoute>
 //              showAvatarDialog();
             },
           ),
-          FlatButton(child: Text('组合动画'), onPressed: () {
-            Navigator.push(context,CupertinoPageRoute(builder: (context)=>StaggerAnimationTestRoute()));
-          }),
-          FlatButton(child: Text('AnimatedSwitcher'), onPressed: () {
-            Navigator.push(context,CupertinoPageRoute(builder: (context)=>AnimatedSwitcherCounterRoute()));
-          })
+          FlatButton(
+              child: Text('组合动画'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => StaggerAnimationTestRoute()));
+              }),
+          FlatButton(
+              child: Text('AnimatedSwitcher'),
+              onPressed: () {
+//            Navigator.push(context,CupertinoPageRoute(builder: (context)=>AnimatedSwitcherCounterRoute()));
+
+                //自定义动画
+//                Navigator.push(context, PageRouteBuilder(
+//                    pageBuilder: (context, animation, secondaryAnimation) {
+//                  var tween = Tween<Offset>(
+//                     //屏幕左侧外为-1 右侧为1，屏幕顶部外为-1 底部为1
+//                      begin: Offset(0, 1),
+//                      end: Offset(0, 0));
+//                  return SlideTransition(
+//                      position: tween.animate(animation),
+//                      child: AnimatedSwitcherCounterRoute());
+//                }));
+
+                Navigator.push(context, PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return SlideTransitionX(
+                          position: animation,
+                          direction: AxisDirection.left, //右边如左边出
+                          child: AnimatedSwitcherCounterRoute());
+                    }));
+              }),
+          FlatButton(
+            child: Text('过渡动画'),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => OverAnimationTestRoute()));
+            },
+          ),
         ],
       ),
     );
