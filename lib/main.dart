@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '10_custom_widget.dart';
 import '11_io.dart';
+import '12_plugin.dart';
 import '8_listener.dart';
 import '2_base_widget.dart';
 import '4_layout.dart';
@@ -162,6 +163,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('IO'),
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => IoRoute())),
+            ),FlatButton(
+              child: Text('插件'),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => BatteryLevelRoute())),
             )
           ],
         ),

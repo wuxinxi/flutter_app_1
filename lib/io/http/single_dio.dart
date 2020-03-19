@@ -9,6 +9,12 @@ class DioFactory {
   Dio dio;
 
   DioFactory._internal() {
+    BaseOptions options = BaseOptions(
+        baseUrl: 'http://192.168.1.70:8082/mall/',
+        connectTimeout: 10000,
+        receiveTimeout: 5000,
+        sendTimeout: 5000,
+        method: 'POST');
     dio = Dio();
   }
 

@@ -15,7 +15,7 @@ class Toast {
     if (mOverlayEntry == null) {
       mOverlayEntry = OverlayEntry(
           builder: (context) => Positioned(
-                top: MediaQuery.of(context).size.height * 2 / 3,
+                top: MediaQuery.of(context).size.height * 2 / 4,
                 child: Container(
                   alignment: Alignment.center,
                   width: MediaQuery.of(context).size.width,
