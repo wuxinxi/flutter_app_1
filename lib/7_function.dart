@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'function/inheritedwidget.dart';
 import 'function/stop_activity.dart';
 import 'function/inherited.dart';
 import 'function/provider_simple.dart';
@@ -29,6 +30,13 @@ class FunctionTest extends StatelessWidget {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) {
                 return InheritedWidgetTestRoute();
+              }));
+            },
+          ),  FlatButton(
+            child: Text('InheritedWidget-数据共享'),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return InheritedWidgetRoute();
               }));
             },
           ),

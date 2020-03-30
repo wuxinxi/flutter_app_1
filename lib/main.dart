@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import '10_custom_widget.dart';
 import '11_io.dart';
 import '12_plugin.dart';
+import '13_simple.dart';
 import '8_listener.dart';
 import '2_base_widget.dart';
 import '4_layout.dart';
@@ -10,6 +12,8 @@ import '5_box.dart';
 import '6_scroll.dart';
 import '7_function.dart';
 import '9_animator.dart';
+import 'i10n/localization_intl.dart';
+import 'localizations/localizations.dart';
 import 'util/utils.dart';
 import 'util/event_bus.dart';
 
@@ -19,14 +23,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-//    Color themeColor = getRandomMaterialColor();
-//    return MaterialApp(
-//      title: 'Flutter Demo',
-//      theme: ThemeData(
-//        primarySwatch: themeColor,
-//      ),
-//      home: MyHomePage(title: 'Flutter Demo Home Page'),
-//    );
     return MyMaterialApp(MyHomePage(title: 'Flutter Demo Home Page'));
   }
 }
@@ -60,6 +56,31 @@ class MyMaterialAppState extends State<MyMaterialApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      //多语言
+      localizationsDelegates: [
+        //本地化代理
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        //注册我们的代理
+        MyLocalizationsDelegate(),
+      ],
+      supportedLocales: [
+        //美国英语
+        const Locale('en', 'US'),
+        //中文简体
+        const Locale('zh', 'CN')
+      ],
+      //监听语言切换事件
+      localeResolutionCallback: (locale, supportedLocales) {
+        print('当前：${locale.languageCode}');
+        print(supportedLocales);
+        if (supportedLocales.contains(locale.languageCode)) {
+          print('包含');
+          return locale;
+        }
+        return Locale('zh', 'CN');
+      },
+      onGenerateTitle: (context) => MyLocalizations.of(context).appTitle,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: themeColor,
@@ -92,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             FlatButton(
-              child: Text('基础组件实例'),
+              child: Text(MyLocalizations.of(context).baseWidgetExampleText),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return BaseWidget();
@@ -100,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             FlatButton(
-              child: Text('布局类组件实例'),
+              child: Text(MyLocalizations.of(context).layoutWidgetExampleText),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Layout();
@@ -108,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             FlatButton(
-              child: Text('容器类组件实例'),
+              child: Text('容器类组件示例'),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Box();
@@ -116,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             FlatButton(
-              child: Text('可滚动组件实例'),
+              child: Text('可滚动组件示例'),
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return Scroll();
@@ -159,14 +180,21 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('自定义Widget'),
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => CustomWidget())),
-            ),FlatButton(
+            ),
+            FlatButton(
               child: Text('IO'),
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => IoRoute())),
-            ),FlatButton(
+              onPressed: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => IoRoute())),
+            ),
+            FlatButton(
               child: Text('插件'),
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => BatteryLevelRoute())),
+            ),
+            FlatButton(
+              child: Text('常用实例Demo'),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => SimpleDemo())),
             )
           ],
         ),

@@ -16,7 +16,7 @@ class MainActivity : FlutterActivity() {
     private val CHANNEL = "samples.flutter.io/battery"
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         GeneratedPluginRegistrant.registerWith(flutterEngine)
-        val flutterView = FlutterView(applicationContext)
+        val flutterView = FlutterView(this)
         MethodChannel(flutterView, CHANNEL).setMethodCallHandler { call, result ->
             if (call.method == "getBatteryLevel") {
                 val batteryLevel = getBatteryLevel()

@@ -1,0 +1,22 @@
+{
+  "@@last_modified": "2020-03-20T17:28:27.918121",
+  "title": "Flutter应用 ",
+  "@@locale":"zh_CN",
+  "@title": {
+    "description": "Title for the Demo application",
+    "type": "text",
+    "placeholders": {}
+  },
+  "baseWidgetExampleText": "基础组件示例",
+  "@baseWidgetExampleText": {
+    "description": "Basic component example",
+    "type": "text",
+    "placeholders": {}
+  },
+  "layoutWidgetExampleText": "布局类组件示例",
+  "@layoutWidgetExampleText": {
+    "description": "Layout component example",
+    "type": "text",
+    "placeholders": {}
+  }
+}
