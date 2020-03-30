@@ -1,6 +1,9 @@
 # flutter_app_1
 
-A new Flutter application.
+Flutter Widget实例合集-从入门到精通
+
+![image](https://raw.githubusercontent.com/wuxinxi/flutter_app_1/master/screenImg/1.png)
+<img src="https://raw.githubusercontent.com/wuxinxi/flutter_app_1/master/screenImg/1.png" width="100" height="150" />
 
 ## Getting Started
 
